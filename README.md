@@ -1,6 +1,6 @@
 # 👋
 
-Hi, I am Prof. Aarushi Sahejpal. I teach quantitative methods to journalists, policymakers -- and anyone that is not predisposed -- at American University's School of Communication. I hold a dual appointment as Data Editor at the Investigative Reporting Workshop at American University (the nonprofit, editorially-independant newsroom housed here). I also co-teach Programming and Data for Policymakers at Harvard University's Kennedy School of Government. More about me at [aarushisahejpal.com](aarushisahejpal.com)
+Hi, I am Prof. Aarushi Sahejpal. I teach quantitative methods to journalists, policymakers -- and anyone that is not predisposed -- at American University's School of Communication. I hold a dual appointment as Data Editor at the Investigative Reporting Workshop at American University (the nonprofit, editorially-independant newsroom housed here). I also co-teach Programming and Data for Policymakers at Harvard University's Kennedy School of Government. More about me at [aarushisahejpal.com](https://www.aarushisahejpal.com/)
 
 You can reach me at anytime [here](aarushi@american.edu)
 
