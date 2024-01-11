@@ -14,6 +14,6 @@ We are going to play around with webscraping, and how journalists use it from da
 
 ## Resources
 
-[R for Data Science (2e)](https://r4ds.hadley.nz/webscraping#fnref2)
-[Harvard Journal of Law and Technology](https://jolt.law.harvard.edu/assets/articlePDFs/v34/6.-Xiao-Bad-Bots-Regulating-the-Scraping-of-Public-Personal-Information-edit.pdf)
-[The Secretive Company That Might End Privacy as We Know It](https://www.nytimes.com/2020/01/18/technology/clearview-privacy-facial-recognition.html)
+- [R for Data Science (2e)](https://r4ds.hadley.nz/webscraping#fnref2)
+- [Harvard Journal of Law and Technology](https://jolt.law.harvard.edu/assets/articlePDFs/v34/6.-Xiao-Bad-Bots-Regulating-the-Scraping-of-Public-Personal-Information-edit.pdf)
+- [The Secretive Company That Might End Privacy as We Know It](https://www.nytimes.com/2020/01/18/technology/clearview-privacy-facial-recognition.html)
