@@ -14,6 +14,11 @@ Everything about [html](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [Rvest](https://rvest.tidyverse.org/)
 
 
+```{r}
+html <- read_html("http://rvest.tidyverse.org/")
+class(html)
+```
+
 ## Let's give it a try
 We are working out of [this]( https://www.fhwa.dot.gov/bridge/nbi/no10/condition23.cfm) Bridge Condition by Highway System 2023 page by the Federal Highway Administration.
 

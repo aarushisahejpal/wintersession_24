@@ -3,10 +3,9 @@ title: "Fallen Officers Exploration"
 date: "`r Sys.Date()`"
 output: html_document
 ---
-# All credit to the Fivethirtyeight data team 
-https://github.com/fivethirtyeight/data/tree/e3ada32d8f4b1072e962940a173851551898fce1/police-deaths
+# All credit to the Fivethirtyeight [data team](https://github.com/fivethirtyeight/data/tree/e3ada32d8f4b1072e962940a173851551898fce1/police-deaths)
 
-https://fivethirtyeight.com/features/the-dallas-shooting-was-among-the-deadliest-for-police-in-u-s-history/
+[Story](https://fivethirtyeight.com/features/the-dallas-shooting-was-among-the-deadliest-for-police-in-u-s-history/)
 
 ```{r}
 library(tidyverse)
