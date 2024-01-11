@@ -6,7 +6,7 @@ You can reach me at anytime [here](aarushi@american.edu)
 
 ## Files
 
-We are going to play around with webscraping, and how journalists use it from day-to-day. There are likely better ways to webscrape in programs like Python but I want to show you how to do it in R because its a good star. 
+We are going to play around with webscraping, and how journalists use it from day-to-day. There are likely better ways to webscrape in programs like Python but I want to show you how to do it in R because its a good start. 
 
 1. is a link to [The Markup](https://themarkup.org/news/2020/12/03/why-web-scraping-is-vital-to-democracy) and how they explain that webscraping is vital to our demoracy.
 2. .Rmd about scraping some federal bridge data.
