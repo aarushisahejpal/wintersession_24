@@ -15,6 +15,9 @@ Everything about [html](https://developer.mozilla.org/en-US/docs/Web/HTML)
 
 
 ```{r}
+library(rvest)
+library(dplyr)
+library(tidyverse)
 html <- read_html("http://rvest.tidyverse.org/")
 class(html)
 ```
@@ -24,9 +27,7 @@ We are working out of [this]( https://www.fhwa.dot.gov/bridge/nbi/no10/condition
 
 
 ```{r}
-library(rvest)
-library(dplyr)
-library(tidyverse)
+
 
 url <- "https://www.fhwa.dot.gov/bridge/nbi/no10/condition23.cfm"
 
