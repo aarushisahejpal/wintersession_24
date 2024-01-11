@@ -1,0 +1,124 @@
+---
+title: "Fallen Officers Exploration"
+date: "`r Sys.Date()`"
+output: html_document
+---
+# All credit to the Fivethirtyeight data team 
+https://github.com/fivethirtyeight/data/tree/e3ada32d8f4b1072e962940a173851551898fce1/police-deaths
+
+https://fivethirtyeight.com/features/the-dallas-shooting-was-among-the-deadliest-for-police-in-u-s-history/
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(rvest)
+library(readr)
+library(tidyr)
+library(lubridate)
+library(stringr)
+library(ggplot2)
+library(magrittr)
+
+
+# Scrape data
+df <- paste0("https://www.odmp.org/search/year/", seq(1900, 2023)) %>% 
+  as_tibble() %>% 
+  set_names("url") %>% 
+  mutate(
+    data = map(url, read_html),
+    nodes = map(data, html_nodes, '[class="officer-short-details"]'),
+    text = map(nodes, html_text),
+    clean_text = map(text, str_trim),
+    clean_text = map(clean_text, str_replace_all, "\n", " separator"),
+    clean_data = map(clean_text, as.data.frame),
+    clean_data = map(clean_data, set_names, "string"),
+    clean_data = map(clean_data, separate, string, c("person", "dept", "eow", "cause"), "separator")
+  ) %>% 
+  select(clean_data) %>% 
+  unnest() %>% 
+  mutate_all(str_squish)
+
+# Write to CSV
+write_csv(df, "all_data_fallen_officers.csv")
+```
+
+```{r}
+# Dallas shooting cleaning
+
+all_data <- read.csv('all_data_fallen_officers.csv', stringsAsFactors=FALSE)
+
+clean_data <- all_data %>%
+  mutate(
+    cause_short = gsub('Cause of Death: ', '', cause),
+    date = mdy(gsub('EOW: ', '', eow)),
+    year = year(date),
+    canine = ifelse(substr(person, 0, 2) == 'K9' & substr(person, 0, 10) != 'K9 Officer', TRUE, FALSE)
+  )
+
+# Split department and state
+dept_state <- strsplit(clean_data$dept, ",(?=[^,]+$)", perl=TRUE)
+
+dept_state_df <- data.frame(matrix(unlist(dept_state), nrow=length(dept_state), byrow=T),stringsAsFactors=FALSE) %>% 
+  rename(dept_name=X1, state=X2)
+
+clean_data <- clean_data %>% 
+  bind_cols(dept_state_df)
+
+write_csv(clean_data, 'clean_data.csv')
+```
+
+```{r}
+# Dallas shooting cleaning
+
+clean_data <- read_csv('clean_data.csv')
+
+# Remove canines
+persons_data <- clean_data %>% 
+  filter(canine == FALSE) 
+
+# Filter for major categories
+large_categories <- persons_data %>%
+      group_by(year, cause_short) %>%
+      summarize(count = n()) %>%
+      data.frame() %>%
+      filter(count >= 20) %>%
+      select(cause_short) %>%
+      unique()
+
+# Categories to plot 
+cat_to_plot <- c(large_categories$cause_short, "Gunfire (Accidental)")
+
+plot_order <- persons_data %>%
+    mutate(cat = ifelse(cause_short %in% cat_to_plot, cause_short, 'other')) %>%
+    group_by(cat) %>%
+    summarize(count = n()) %>%
+    data.frame() %>%
+    arrange(desc(count)) %>%
+    extract2(1)
+
+# Move order to the end
+plot_order <- c(plot_order[! (plot_order == 'other')], 'other')
+    
+
+# Create data for plotting
+data_for_plot <- persons_data %>%
+      mutate(cat = ifelse(cause_short %in% cat_to_plot, cause_short, 'other')) %>%
+      group_by(year, cat) %>%
+      summarize(count = n()) %>%
+      data.frame() %>%
+      spread(cat, count)
+
+data_for_plot[is.na(data_for_plot)] <- 0
+
+data_for_plot <- data_for_plot %>%
+      gather(cat, count, -year) %>%
+      mutate(cat = factor(cat, levels=plot_order)) %>%
+      arrange(cat)
+
+# Deaths by cause
+p_area <- ggplot(data_for_plot, aes(x=year, y=count, group=cat, order=cat)) +
+      geom_area(aes(fill=cat), position='stack')
+p_area
+```
+
+What is happening here? Is the spike more officers dying in the field? Or?

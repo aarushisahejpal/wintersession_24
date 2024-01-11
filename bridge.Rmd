@@ -1,0 +1,41 @@
+---
+title: "Bridges"
+author: "Aarushi Sahejpal"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Winter Institute 2024
+Everything about [html](https://developer.mozilla.org/en-US/docs/Web/HTML)
+
+[Rvest](https://rvest.tidyverse.org/)
+
+
+## Let's give it a try
+We are working out of [this]( https://www.fhwa.dot.gov/bridge/nbi/no10/condition23.cfm) Bridge Condition by Highway System 2023 page by the Federal Highway Administration.
+
+
+```{r}
+library(rvest)
+library(dplyr)
+library(tidyverse)
+
+url <- "https://www.fhwa.dot.gov/bridge/nbi/no10/condition23.cfm"
+
+webpage <- read_html(url)
+
+
+bridge_all <- html_table(html_nodes(webpage, "table"))[[1]]
+
+bridges <- bridge_all[-1, ]
+
+print(bridges)
+
+write.csv(bridges, "bridges.csv")
+
+
+```
+
