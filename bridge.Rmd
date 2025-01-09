@@ -8,32 +8,48 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-## Winter Institute 2024
+# Winter Institute 2025
 Everything about [html](https://developer.mozilla.org/en-US/docs/Web/HTML)
 
 [Rvest](https://rvest.tidyverse.org/)
 
-
+## Libraries
 ```{r}
 library(rvest)
 library(dplyr)
 library(tidyverse)
+```
+
+## Test
+```{r}
 html <- read_html("http://rvest.tidyverse.org/")
 class(html)
 ```
 
 ## Let's give it a try
-We are working out of [this]( https://www.fhwa.dot.gov/bridge/nbi/no10/condition23.cfm) Bridge Condition by Highway System 2023 page by the Federal Highway Administration.
+We are working out of [this]( https://www.fhwa.dot.gov/bridge/nbi/no10/condition24.cfm) Bridge Condition by Highway System 2024 page by the Federal Highway Administration.
 
-
+Our first step is to define a URl, read in the webpage, and do a check on the class.
 ```{r}
 
-
-url <- "https://www.fhwa.dot.gov/bridge/nbi/no10/condition23.cfm"
+url <- "https://www.fhwa.dot.gov/bridge/nbi/no10/condition24.cfm"
 
 webpage <- read_html(url)
 
+class(url)
 
+```
+
+# Exploring elements
+
+```{r}
+paragraphs <- html_nodes(webpage, "p")
+paragraphs
+```
+# Extract
+
+We know the bridge condition data is stored in a table. 
+```{r}
 bridge_all <- html_table(html_nodes(webpage, "table"))[[1]]
 
 bridges <- bridge_all[-1, ]
@@ -41,7 +57,15 @@ bridges <- bridge_all[-1, ]
 print(bridges)
 
 write.csv(bridges, "bridges.csv")
-
-
 ```
+
+# Summary!
+
+```{r}
+summary(bridges)
+names(bridges)
+str(bridges)
+```
+
+
 
